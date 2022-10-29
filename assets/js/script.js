@@ -12,6 +12,7 @@
 
 function locationFetch() {
   var city = 'Brisbane';
+  localStorage.setItem("City", city);
   var requestUrl = 'http://api.openweathermap.org/geo/1.0/direct?q='+ city +'&limit=5&appid=f51dae6f34b6662dee7748eebb1dcd61';
       fetch(requestUrl)
       .then(function (response) {
@@ -30,8 +31,7 @@ function searchApi() {
 
     var lat = localStorage.getItem('Latitude');
     var long = localStorage.getItem('Longditude');
-    var weatherQueryUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat='+ lat +'&lon='+ long +'&appid=f51dae6f34b6662dee7748eebb1dcd61';
-    console.log(weatherQueryUrl);
+    var weatherQueryUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat='+ lat +'&lon='+ long + '&units=imperial&appid=f51dae6f34b6662dee7748eebb1dcd61';
 
     fetch(weatherQueryUrl)
       .then(function (response) {
@@ -41,10 +41,26 @@ function searchApi() {
         return response.json();
       })
       .then(function (weatherRes) {
-        // write query to page so user knows what they are viewing
-       console.log(weatherRes)
+       for (var i = 2; i < 41 ; i= i+9) {
+          printResults(weatherRes.list[i]);
+        }
       })
-  };
+      };
+
+  function printResults(data){
+    var dateTime = data.dt_txt;
+    var date = dateTime.match(/^(\S+)\s(.*)/).slice(1)[0];
+    var icon = 'http://openweathermap.org/img/wn/' + data.weather[0].icon + '.png';
+    var temperature = data.main.temp;
+    var wind = data.wind.speed;
+    var humidity = data.main.humidity;
+
+
+    
+
+  }
+  
+
 
   //searchFormEl.addEventListener('click', handleSearchFormSubmit);
   locationFetch();

@@ -77,7 +77,7 @@ function todayWeather(data){
 
 function locationFetch(city) {
   localStorage.setItem("City", city);
-  var requestUrl = 'http://api.openweathermap.org/geo/1.0/direct?q='+ city +'&limit=5&appid=f51dae6f34b6662dee7748eebb1dcd61';
+  var requestUrl = 'https://api.openweathermap.org/geo/1.0/direct?q='+ city +'&limit=5&appid=f51dae6f34b6662dee7748eebb1dcd61';
       fetch(requestUrl)
       .then(function (response) {
         return response.json();
@@ -131,24 +131,24 @@ function searchApi() {
         locationFetch(searchInputVal);
         searchApi();
       
-        // var cityNames = [];
-        // if (!localStorage.getItem("City-Storage")){
-        //   cityNames.push(searchInputVal);
-        //   localStorage.setItem("City-Storage", JSON.stringify(cityNames));
-        //   return;
-        // } else {
-        //   var storedNames = JSON.parse(localStorage.getItem("City-Storage"));
-        //   storedNames.push(searchInputVal);
-        //   localStorage.setItem("City-Storage", JSON.stringify(storedNames));
-        // }
+        var cityNames = [];
+        if (!localStorage.getItem("City-Storage")){
+          cityNames.push(searchInputVal);
+          localStorage.setItem("City-Storage", JSON.stringify(cityNames));
+          return;
+        } else {
+          var storedNames = JSON.parse(localStorage.getItem("City-Storage"));
+          storedNames.push(searchInputVal);
+          localStorage.setItem("City-Storage", JSON.stringify(storedNames));
+        };
       
       
-        // for (i=0; i < cities.length; i++ ){
-        //   var historyCard = document.createElement('div');
-        //   historyCard.classList.add('card', 'bg-primary', 'bg-gradient', 'text-white', 'mb-3', 'p-5');
-        //   historyCard.innerHTML = cities[i];
-        //   historyEl.append(historyCard);
-        // }
+        for (i=0; i < cities.length; i++ ){
+          var historyCard = document.createElement('div');
+          historyCard.classList.add('card', 'bg-primary', 'bg-gradient', 'text-white', 'mb-3', 'p-5');
+          historyCard.innerHTML = cities[i];
+          historyEl.append(historyCard);
+        };
       
       };
 

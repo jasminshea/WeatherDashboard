@@ -38,7 +38,7 @@ To access this website, follow the link below and you will be redirected. Type y
 
 Below is the link to the webpage
 
-https://jasminshea.github.io/PlanTravel/
+https://jasminshea.github.io/WeatherDashboard/
 
 ![image of home screen](./assets/images/homepage.png)
 

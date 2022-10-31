@@ -41,7 +41,8 @@ function printResults(data){
 
 function todayWeather(data){
   var title = localStorage.getItem("City");
-  var date = localStorage.getItem("Today");
+  var dateTime = data.dt_txt;
+  var date = dateTime.match(/^(\S+)\s(.*)/).slice(1)[0];
   //var icon = 'http://openweathermap.org/img/wn/' + data.weather[0].icon + '.png';
   var temperature = data.main.temp;
   var wind = data.wind.speed;
@@ -70,7 +71,6 @@ function todayWeather(data){
   resultCard.append(resultBody);
 
   currentDayEl.append(resultCard);
-    
 };
 
 
@@ -149,7 +149,6 @@ function searchApi() {
           historyCard.innerHTML = cities[i];
           historyEl.append(historyCard);
         };
-      
       };
 
   searchFormEl.addEventListener('click', handleSearchFormSubmit);

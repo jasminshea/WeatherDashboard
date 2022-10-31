@@ -95,7 +95,7 @@ function searchApi() {
 
     var lat = localStorage.getItem('Latitude');
     var long = localStorage.getItem('Longditude');
-    var weatherQueryUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat='+ lat +'&lon='+ long + '&units=imperial&appid=47f166773e351368285402b79068ea73';
+    var weatherQueryUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat='+ lat +'&lon='+ long + '&units=imperial&appid=f51dae6f34b6662dee7748eebb1dcd61';
 
     fetch(weatherQueryUrl)
       .then(function (response) {

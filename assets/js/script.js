@@ -39,37 +39,39 @@ function printResults(data){
   cardsEl.append(resultsCard);
 }
 
-// function todayWeather(data){
-//   console.log(data);
-//   var title = localStorage.getItem("City");
-//   var date = localStorage.getItem("Today");
-//   //var icon = 'http://openweathermap.org/img/wn/' + data.weather[0].icon + '.png';
-//   var temperature = data.main.temp;
-//   var wind = data.wind.speed;
-//   var humidity = data.main.humidity;
+function todayWeather(data){
+  var title = localStorage.getItem("City");
+  var date = localStorage.getItem("Today");
+  //var icon = 'http://openweathermap.org/img/wn/' + data.weather[0].icon + '.png';
+  var temperature = data.main.temp;
+  var wind = data.wind.speed;
+  var humidity = data.main.humidity;
+
+  var resultCard = document.createElement('div');
+  resultCard.classList.add('card', 'mb-3', 'p-5', 'd-inline', 'shadow-none');
   
-//   var titleContentEl = document.createElement('h1');
-//   titleContentEl.innerHTML = '<strong> ' + title + '</strong>';
+  var titleContentEl = document.createElement('h1');
+  titleContentEl.innerHTML = '<strong> ' + title + '</strong>' + '<strong>   ' + date + '</strong>';
 
-//   var dateContentEl = document.createElement('h4');
-//   dateContentEl.innerHTML = '<strong> ' + date + '</strong>';
+  var tempContentEl = document.createElement('p');
+  tempContentEl.innerHTML = 'Temp: ' + temperature + 'F';
 
-//   var tempContentEl = document.createElement('p');
-//   tempContentEl.innerHTML = 'Temp: ' + temperature + 'F';
+  var windContentEl = document.createElement('p');
+  windContentEl.innerHTML = 'Wind: ' + wind + ' MPH';
 
-//   var windContentEl = document.createElement('p');
-//   windContentEl.innerHTML = 'Wind: ' + wind + ' MPH';
+  var humidContentEl = document.createElement('p');
+  humidContentEl.innerHTML = 'Humidity: ' + humidity + '%';
 
-//   var humidContentEl = document.createElement('p');
-//   humidContentEl.innerHTML = 'Humidity: ' + humidity + '%';
- 
-//   resultBody.append(dateContentEl, tempContentEl, windContentEl, humidContentEl);
+  var resultBody = document.createElement('div');
+  resultCard.append(resultBody);
 
-//   resultCard.append(resultBody);
+  resultBody.append(titleContentEl, tempContentEl, windContentEl, humidContentEl);
 
-//   currentDayEl.append(resultCard);
+  resultCard.append(resultBody);
+
+  currentDayEl.append(resultCard);
     
-// };
+};
 
 
 
@@ -93,7 +95,7 @@ function searchApi() {
 
     var lat = localStorage.getItem('Latitude');
     var long = localStorage.getItem('Longditude');
-    var weatherQueryUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat='+ lat +'&lon='+ long + '&units=imperial&appid=f51dae6f34b6662dee7748eebb1dcd61';
+    var weatherQueryUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat='+ lat +'&lon='+ long + '&units=imperial&appid=47f166773e351368285402b79068ea73';
 
     fetch(weatherQueryUrl)
       .then(function (response) {
@@ -103,7 +105,7 @@ function searchApi() {
         return response.json();
       })
       .then(function (weatherRes) {
-        //todayWeather(weatherRes.list[2]);
+        todayWeather(weatherRes.list[0]);
        for (var i = 2; i < 41 ; i= i+9) {
           printResults(weatherRes.list[i]);
         }
@@ -116,6 +118,10 @@ function searchApi() {
         while(cardsEl.firstChild){
           cardsEl.removeChild(cardsEl.firstChild);
         }
+
+        while(currentDayEl.firstChild){
+          currentDayEl.removeChild(currentDayEl.firstChild);
+        }
       
         var searchInputVal = document.querySelector('#search-input').value;
         console.log(searchInputVal);
@@ -123,7 +129,6 @@ function searchApi() {
         localStorage.setItem("City", searchInputVal);
       
         locationFetch(searchInputVal);
-        // todayWeather();
         searchApi();
       
         // var cityNames = [];
